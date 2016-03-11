@@ -175,13 +175,15 @@ new GuiControl(newCursorGui) {
 
 function newCursorGui::onWake(%this)
 {
-   CursorGui.position = "0 -900";
+   %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
+   CursorGui.position = %centerX SPC -900;
    CursorGui.tangoMoveTo("center", "1000", "elastic");
 }
 
 function newCursorGui::onSleep(%this)
 {
-   CursorGui.position = "0 -900";
+   %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
+   CursorGui.position = %centerX SPC -900;
 }
 
 function NewCursorGui::setCursor(%this, %cursor)
