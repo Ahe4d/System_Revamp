@@ -15,3 +15,11 @@
 
 ## How do I download it?
 ##### Simple! Click on the Download Zip button at the top of the page. After you do this you can put the zip in your add-ons folder.
+
+
+## Credit
+#### Credit to Garage Games and Zapk for making aweseome scripts!
+##### ./Tango.cs | Zapk
+##### ./Gui/NetGraphGui.gui | Garage Games
+##### ./Gui/HudlessGui.gui | Garage Games
+##### ./Gui/ConsoleDlg.gui | Garage Games | Blockland
