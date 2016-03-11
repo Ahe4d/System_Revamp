@@ -3,6 +3,8 @@
 
 consoleDlg.delete(); //does it already exist? Probably.
 
+//We need to rewrite it for tango.
+
 //--- OBJECT WRITE BEGIN ---
 new GuiControl(ConsoleDlg) {
    profile = "GuiDefaultProfile";
@@ -140,6 +142,11 @@ function ConsoleEntry::eval()
       echo( %result );
 }
 
+//function popConsole()
+//{
+//   canvas.popDialog(ConsoleDlg);
+//}
+
 function ToggleConsole(%make)
 {
    if (%make)
@@ -147,6 +154,8 @@ function ToggleConsole(%make)
       if (ConsoleDlg.isAwake())
       {
          // Deactivate the console.
+         //Console.tangoMoveTo("0 -1500", "1000", "elastic");
+         //schedule(1000, 0, canvas.popDialog, ConsoleDlg);
          Canvas.popDialog(ConsoleDlg);
       }
       else
@@ -160,7 +169,7 @@ function ConsoleDlg::hideWindow( %this )
 {
    ConsoleScroll.setVisible( false );
 }
- //I don't think these are needed.
+ //I don't think these are needed, but I'm keeping them anyway.
 function ConsoleDlg::showWindow( %this )
 {
    ConsoleScroll.setVisible( true );
@@ -176,16 +185,11 @@ function ConsoleDlg::setAlpha(  %this, %alpha )
 
 function consoleDlg::onWake(%this)
 {
-   %entry = "";
-   for(%i=0;%i<256;%i++)
-      %entry = %entry @ " ";
-   consoleEntry.setValue( %entry );
-   Console.position = 0 SPC getRandom(-1500,-9000);
+   Console.position = 0 SPC -1500;
    Console.tangoMoveTo("0 0", "1000", "elastic");
-   consoleEntry.setValue( "" );
 }
 
-//function consoleDlg::onSleep(%this)
-//{
-//   Console.position = 0 SPC getRandom(900,5000);
-//}
+function consoleDlg::onSleep(%this)
+{
+   Console.position = 0 SPC -1500;
+}
