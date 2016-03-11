@@ -144,7 +144,7 @@ new GuiControl(RevampWelcomeDlg) {
 function RevampWelcomeDlg::onWake(%this)
 {
    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
-   RevampWelcomeWindow.position = "400 -800";
+   RevampWelcomeWindow.position = %centerX SPC -800;
    RevampWelcomeWindow.tangoMoveTo("center", "1000", "elastic");
 }
 
