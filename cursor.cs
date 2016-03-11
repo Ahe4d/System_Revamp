@@ -1,6 +1,8 @@
 //-----------------------------------------------------------------------------
 // Copyright (c) 2012 GarageGames, LLC
 //----------------------The rest of this wasn't needed-------------------------
+if( $Pref::Cursor !$= "" ) //Did you have a previous version?
+	$Pref::Revamp::Cursor = $Pref::Cursor;
 
 if( !$Pref::Cursor ) //did you already set a default cursor?
    $Pref::Cursor = 0; //make it default.
@@ -15,7 +17,7 @@ if( $platform $= "macos" )
    {
       hotSpot = "4 4";
       renderOffset = "0 0";
-      bitmapName = "./images/cursor" @ $Pref::Cursor;
+      bitmapName = "./images/cursor" @ $Pref::Revamp::Cursor;
    };
 } 
 else 
@@ -24,7 +26,7 @@ else
    {
       hotSpot = "1 1";
       renderOffset = "0 0";
-      bitmapName = "./images/cursor" @ $Pref::Cursor;
+      bitmapName = "./images/cursor" @ $Pref::Revamp::Cursor;
    };
 }
 
@@ -39,19 +41,6 @@ function toggleNewCursor(%key)
    }
    //else
       //return //was it released?
-}
-
-function toggleNewCursor(%key)
-{
-   if(%key) //was it pressed?
-   {
-      if(newCursorGui.isAwake)
-         return canvas.popDialog(newCursorGui);
-      else
-         return canvas.pushDialog(newCursorGui);
-   }
-   //else //was it released?
-      //return //this isn't needed.
 }
 
 function OptionsDlg::applyGraphics(%this, %testNeedApply)
