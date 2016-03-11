@@ -31,7 +31,7 @@ if(!$Revamp::exec)
 	globalActionMap.bind(keyboard, "f5", toggleNewCursor);
 	globalActionMap.bind(keyboard, "f6", ToggleHudlessPlayGui);
 
-	canvas.popDialog(newCursorGui); //I have no clue why this happens
+	//canvas.popDialog(newCursorGui); //I have no clue why this happens
 
 	echo("\c2---|\c5Attempting to check for first timer?\c2|---");
 
@@ -40,17 +40,17 @@ if(!$Revamp::exec)
 		$Pref::Revamp::FirstTime = 0;
 		schedule(1000, 0, RevampWelcome);
 	}
+	else
+		RevampWelcomeDlg.delete(); //I'm not gonna clutter Gui's into Blockland.
 
-
-	//else
-	//	RevampWelcomeDlg.delete(); //I'm not gonna clutter Gui's into Blockland.
 	$Revamp::exec = 1;
 	echo("\c2---|\c5Finished!\c2|---");
 }
 
 function RevampWelcome()
 {
-	$Pref::Revamp::CurrentVersion = $Revamp::Version;
+	$Pref::Revamp::FirstTime = 1;
+	$Pref::Revamp::Version = $Revamp::Version;
 	canvas.pushDialog(RevampWelcomeDlg);
 
 	export("$Pref*","config/client/prefs.cs");
