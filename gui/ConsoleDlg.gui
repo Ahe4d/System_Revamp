@@ -1,0 +1,191 @@
+//-Created by Garage Games in Torque 3D
+//--Edited to make work in Blockland w/ default Console
+
+consoleDlg.delete(); //does it already exist? Probably.
+
+//--- OBJECT WRITE BEGIN ---
+new GuiControl(ConsoleDlg) {
+   profile = "GuiDefaultProfile";
+   horizSizing = "right";
+   vertSizing = "bottom";
+   position = "0 0";
+   extent = "640 480";
+   minExtent = "8 2";
+   enabled = "1";
+   visible = "1";
+   clipToParent = "1";
+
+   new GuiWindowCtrl(Console) {
+      profile = "GuiWindowProfile";
+      horizSizing = "right";
+      vertSizing = "bottom";
+      position = "0 0";
+      extent = "640 370";
+      minExtent = "8 2";
+      enabled = "1";
+      visible = "1";
+      clipToParent = "1";
+      text = "Console";
+      maxLength = "255";
+      resizeWidth = "1";
+      resizeHeight = "1";
+      canMove = "1";
+      canClose = "1";
+      canMinimize = "1";
+      canMaximize = "1";
+      minSize = "50 50";
+
+      new GuiScrollCtrl(ConsoleScroll) {
+         profile = "GuiScrollProfile";
+         horizSizing = "width";
+         vertSizing = "height";
+         position = "0 0";
+         extent = "640 353";
+         minExtent = "8 8";
+         enabled = "1";
+         visible = "1";
+         clipToParent = "1";
+         willFirstRespond = "1";
+         hScrollBar = "alwaysOn";
+         vScrollBar = "alwaysOn";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+         rowHeight = "40";
+         columnWidth = "30";
+
+         new GuiConsole( testArrayCtrl ) {
+            profile = "GuiConsoleProfile";
+            position = "0 0";
+         };
+      };
+      new GuiConsoleEditCtrl(ConsoleEntry) {
+         profile = "GuiTextEditProfile";
+         horizSizing = "width";
+         vertSizing = "top";
+         position = "0 352";
+         extent = "640 18";
+         minExtent = "8 2";
+         enabled = "1";
+         visible = "1";
+         clipToParent = "1";
+         altCommand = "ConsoleEntry::eval();";
+         maxLength = "255";
+         historySize = "20";
+         password = "0";
+         tabComplete = "0";
+         sinkAllKeyEvents = "1";
+         useSiblingScroller = "1";
+      };
+   };
+};
+//--- OBJECT WRITE END ---
+
+function ConsoleEntry::eval()
+{
+   %text = trim( ConsoleEntry.getValue() );
+   if( %text $= "" )
+      return;
+   
+   // If it's missing a trailing () and it's not a variable,
+   // append the parentheses.
+
+   if( strpos(%text, "(") == -1 && !%text )
+   {
+      if(strpos(%text, "=") == -1 && strpos(%text, " ") == -1)
+      {
+         if(strpos(%text, "{") == -1 && strpos(%text, "}") == -1)
+         {
+            %text = %text @ "()";
+         }
+      }
+   }
+   
+   // Append a semicolon if need be.
+
+   %pos = strlen(%text) - 1;
+   if(strpos(%text, ";", %pos) == -1 && strpos(%text, "}") == -1)
+   {
+      %text = %text @ ";";
+   }
+   
+   // Turn off warnings for assigning from void
+   // and evaluate the snippet.
+   
+   if( !$Con::warnVoidAssignment )
+      %oldWarnVoidAssignment = true;
+   else
+      %oldWarnVoidAssignment = $Con::warnVoidAssignment;
+   $Con::warnVoidAssignment = false;
+   
+   echo("==>" @ %text);
+   if(    getWord( %text,0 ) !$= "function"
+       && getWord( %text,0 ) !$= "datablock"
+       && getWord( %text,0 ) !$= "foreach(" 
+       && getWord( %text,0 ) !$= "foreach$(" 
+       && getWord( %text,0 ) !$= "if(" 
+       && getWord( %text,0 ) !$= "while(" 
+       && getWord( %text,0 ) !$= "for(" 
+       && getWord( %text,0 ) !$= "switch(" 
+       && getWord( %text,0 ) !$= "switch$("  )
+      eval( "%result = " @ %text );
+   else
+      eval( %text );
+   $Con::warnVoidAssignment = %oldWarnVoidAssignment;
+   
+   ConsoleEntry.setValue("");
+   
+   // Echo result.
+   
+   if( %result !$= "" )
+      echo( %result );
+}
+
+function ToggleConsole(%make)
+{
+   if (%make)
+   {
+      if (ConsoleDlg.isAwake())
+      {
+         // Deactivate the console.
+         Canvas.popDialog(ConsoleDlg);
+      }
+      else
+      {
+         Canvas.pushDialog(ConsoleDlg, 99);         
+      }
+   }
+}
+
+function ConsoleDlg::hideWindow( %this )
+{
+   ConsoleScroll.setVisible( false );
+}
+ //I don't think these are needed.
+function ConsoleDlg::showWindow( %this )
+{
+   ConsoleScroll.setVisible( true );
+}
+
+function ConsoleDlg::setAlpha(  %this, %alpha )
+{
+   if ( %alpha $= "" )
+      ConsoleScrollProfile.fillColor = $ConsoleDefaultFillColor;
+   else
+      ConsoleScrollProfile.fillColor = getWords( $ConsoleDefaultFillColor, 0, 2 ) SPC %alpha * 255.0;
+}
+
+function consoleDlg::onWake(%this)
+{
+   %entry = "";
+   for(%i=0;%i<256;%i++)
+      %entry = %entry @ " ";
+   consoleEntry.setValue( %entry );
+   Console.position = 0 SPC getRandom(-1500,-9000);
+   Console.tangoMoveTo("0 0", "1000", "elastic");
+   consoleEntry.setValue( "" );
+}
+
+//function consoleDlg::onSleep(%this)
+//{
+//   Console.position = 0 SPC getRandom(900,5000);
+//}
