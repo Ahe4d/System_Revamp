@@ -1,4 +1,4 @@
-//System_Revamp.
+
 $Revamp::Version = 0.7 @ "a"; //A for Alpha.
 
 //I wanted to make it a bit easier for people to do things
@@ -19,7 +19,7 @@ if(!$Revamp::exec)
 	exec("./gui/newCursorGui.gui"); //Spice it up with some new cursors for the player v0.2a
 	exec("./gui/hudlessGui.gui"); //Torque3D's "hudless PlayGui" -- v0.1 [the start of System_Revamp]
 
-	exec("./gui/progress.cs"); //You're not a real Gui!!
+	exec("./gui/test.cs"); //You're not a real Gui!!
 	//---CURSOR Control---
 	exec("./cursor.cs");
 
