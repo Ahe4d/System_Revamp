@@ -381,13 +381,11 @@ new GuiControl(adminGui) {
 };
 //--- OBJECT WRITE END ---
 
-function AdminGUI::onWake(%this)
-{
-   adminWindow.position = "-7000 -500";
+function AdminGUI::onWake(%this) {
+   adminWindow.position = "0 -2000";
    AdminWindow.tangoMoveTo("center", "1000", "elastic");
 }
 
-function AdminGUI::onSleep(%this)
-{
-   AdminWindow.position = "-7000 -500";
+function AdminGUI::onSleep(%this) {
+   AdminWindow.position = "0 -2000";
 }

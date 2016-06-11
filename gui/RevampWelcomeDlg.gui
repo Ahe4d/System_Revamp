@@ -141,15 +141,13 @@ new GuiControl(RevampWelcomeDlg) {
 };
 //--- OBJECT WRITE END ---
 
-function RevampWelcomeDlg::onWake(%this)
-{
+function RevampWelcomeDlg::onWake(%this) {
    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
    RevampWelcomeWindow.position = %centerX SPC -800;
    RevampWelcomeWindow.tangoMoveTo("center", "1000", "elastic");
 }
 
-function RevampWelcomeDlg::onSleep(%this)
-{
+function RevampWelcomeDlg::onSleep(%this) {
    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
    RevampWelcomeWindow.position = %centerX SPC -800;
 }

@@ -82,114 +82,75 @@ new GuiControl(ConsoleDlg) {
 };
 //--- OBJECT WRITE END ---
 
-function ConsoleEntry::eval()
-{
-   %text = trim( ConsoleEntry.getValue() );
-   if( %text $= "" )
-      return;
-   
-   // If it's missing a trailing () and it's not a variable,
-   // append the parentheses.
+function ConsoleEntry::eval() {
+    %text = trim( ConsoleEntry.getValue() );
+    if( %text $= "" )
+        return;
 
-   if( strpos(%text, "(") == -1 && !%text )
-   {
-      if(strpos(%text, "=") == -1 && strpos(%text, " ") == -1)
-      {
-         if(strpos(%text, "{") == -1 && strpos(%text, "}") == -1)
-         {
-            %text = %text @ "()";
-         }
-      }
+    if( strpos(%text, "(") == -1 && !%text ) {
+        if(strpos(%text, "=") == -1 && strpos(%text, " ") == -1) {
+            if(strpos(%text, "{") == -1 && strpos(%text, "}") == -1) {
+                %text = %text @ "()";
+            }
+        }
    }
-   
+
    // Append a semicolon if need be.
 
-   %pos = strlen(%text) - 1;
-   if(strpos(%text, ";", %pos) == -1 && strpos(%text, "}") == -1)
-   {
-      %text = %text @ ";";
-   }
-   
+    %pos = strlen(%text) - 1;
+    if(strpos(%text, ";", %pos) == -1 && strpos(%text, "}") == -1) {
+        %text = %text @ ";";
+    }
+
    // Turn off warnings for assigning from void
    // and evaluate the snippet.
-   
-   if( !$Con::warnVoidAssignment )
-      %oldWarnVoidAssignment = true;
-   else
-      %oldWarnVoidAssignment = $Con::warnVoidAssignment;
-   $Con::warnVoidAssignment = false;
-   
-   echo("==>" @ %text);
-   if(    getWord( %text,0 ) !$= "function"
-       && getWord( %text,0 ) !$= "datablock"
-       && getWord( %text,0 ) !$= "foreach(" 
-       && getWord( %text,0 ) !$= "foreach$(" 
-       && getWord( %text,0 ) !$= "if(" 
-       && getWord( %text,0 ) !$= "while(" 
-       && getWord( %text,0 ) !$= "for(" 
-       && getWord( %text,0 ) !$= "switch(" 
-       && getWord( %text,0 ) !$= "switch$("  )
-      eval( "%result = " @ %text );
-   else
-      eval( %text );
-   $Con::warnVoidAssignment = %oldWarnVoidAssignment;
-   
-   ConsoleEntry.setValue("");
-   
-   // Echo result.
-   
-   if( %result !$= "" )
-      echo( %result );
+
+    if( !$Con::warnVoidAssignment )
+        %oldWarnVoidAssignment = true;
+    else
+        %oldWarnVoidAssignment = $Con::warnVoidAssignment;
+    $Con::warnVoidAssignment = false;
+
+    echo("==>" @ %text);
+    eval( %text );
+    $Con::warnVoidAssignment = %oldWarnVoidAssignment;
+
+    ConsoleEntry.setValue("");
+
+    // Echo result.
+
+    if( %result !$= "" )
+        echo( %result );
 }
 
-//function popConsole()
-//{
-//   canvas.popDialog(ConsoleDlg);
-//}
-
-function ToggleConsole(%make)
-{
-   if (%make)
-   {
-      if (ConsoleDlg.isAwake())
-      {
-         // Deactivate the console.
-         //Console.tangoMoveTo("0 -1500", "1000", "elastic");
-         //schedule(1000, 0, canvas.popDialog, ConsoleDlg);
-         Canvas.popDialog(ConsoleDlg);
-      }
-      else
-      {
-         Canvas.pushDialog(ConsoleDlg, 99);         
-      }
-   }
+function ToggleConsole(%make) {
+    if(%make) {
+        if(ConsoleDlg.isAwake())
+            Canvas.popDialog(ConsoleDlg);
+        else
+            Canvas.pushDialog(ConsoleDlg, 99);
+    }
 }
 
-function ConsoleDlg::hideWindow( %this )
-{
-   ConsoleScroll.setVisible( false );
+function ConsoleDlg::hideWindow(%this) {
+    ConsoleScroll.setVisible( false );
 }
- //I don't think these are needed, but I'm keeping them anyway.
-function ConsoleDlg::showWindow( %this )
-{
-   ConsoleScroll.setVisible( true );
+function ConsoleDlg::showWindow( %this ) {
+    ConsoleScroll.setVisible(true);
 }
 
-function ConsoleDlg::setAlpha(  %this, %alpha )
-{
-   if ( %alpha $= "" )
-      ConsoleScrollProfile.fillColor = $ConsoleDefaultFillColor;
-   else
-      ConsoleScrollProfile.fillColor = getWords( $ConsoleDefaultFillColor, 0, 2 ) SPC %alpha * 255.0;
+function ConsoleDlg::setAlpha(%this, %alpha) {
+    if ( %alpha $= "" )
+        ConsoleScrollProfile.fillColor = $ConsoleDefaultFillColor;
+    else
+        ConsoleScrollProfile.fillColor = getWords( $ConsoleDefaultFillColor, 0, 2 ) SPC %alpha * 255.0;
 }
 
-function consoleDlg::onWake(%this)
-{
-   Console.position = 0 SPC -1500;
-   Console.tangoMoveTo("0 0", "1000", "elastic");
+function consoleDlg::onWake(%this) {
+    Console.position = 0 SPC -1500;
+    Console.tangoMoveTo("0 0", "1000", "elastic");
 }
 
-function consoleDlg::onSleep(%this)
-{
+function consoleDlg::onSleep(%this) {
    Console.position = 0 SPC -1500;
 }

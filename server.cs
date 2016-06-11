@@ -1,2 +1,1 @@
-//---SKYBOX---
-exec("./sky/skies.dml");
+// nothing here.
