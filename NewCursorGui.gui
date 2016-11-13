@@ -171,30 +171,3 @@ new GuiControl(newCursorGui) {
    };
 };
 //--- OBJECT WRITE END ---
-
-
-function newCursorGui::onWake(%this) {
-    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
-    CursorGui.position = %centerX SPC -900;
-    CursorGui.tangoMoveTo("center", "1000", "elastic");
-}
-
-function newCursorGui::onSleep(%this) {
-    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
-    CursorGui.position = %centerX SPC -900;
-}
-
-function NewCursorGui::setCursor(%this, %cursor)
-{
-    if(%this !$= "newCursorGui") {
-        warn("[NewCursorGUI]: GUI is not open");
-        return;
-    }
-    if(%cursor < 0 || %cursor > 7) {
-        warn("[NewCursorGUI]: Cursor is over / under limited.");
-        return;
-    }
-    $Pref::Cursor = %cursor;
-    export("$Pref*","config/client/prefs.cs");
-    messageBoxOK("Game needs to be restarted in order for changes to take place!");
-}

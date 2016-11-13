@@ -150,14 +150,14 @@ function GuiControl::tangoMoveTick(%this, %modex, %modey, %startpos, %distx, %di
 		%y = getWord(%startpos, 1) + %dist[y];
 		%w = getWord(%this.extent, 0);
 		%h = getWord(%this.extent, 1);
-	
+
 		%this.resize(%x, %y, %w, %h);
 
 		$tngEcf = "tangoMoveTick";
 		tngE("Done!" SPC %this.position SPC %distx SPC %disty);
 		return;
 	}
-	
+
 	switch$(%mode[x])
 	{
 		case "quad":
@@ -278,14 +278,14 @@ function GuiControl::tangoScaleTick(%this, %modex, %modey, %startscale, %distx, 
 		%y = getWord(%this.position, 1);
 		%w = getWord(%startscale, 0) + %dist[x];
 		%h = getWord(%startscale, 1) + %dist[y];
-	
+
 		%this.resize(%x, %y, %w, %h);
 
 		$tngEcf = "tangoScaleTick";
 		tngE("Done!" SPC %this.position SPC %distx SPC %disty);
 		return;
 	}
-	
+
 	switch$(%mode[x])
 	{
 		case "quad":

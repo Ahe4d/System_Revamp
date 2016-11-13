@@ -1,39 +1,76 @@
+echo("--| System_Revamp being delt with... |---");
+if(!isObject(NewCursorGui))
+    exec("./NewCursorGui.gui");
+if(isObject(NetGraphGui)) {
+    NetGraphGui.delete();
+    exec("./NetGraphGui.gui");
+}
+if(!isObject(hudlessGui))
+    exec("./hudlessGui.gui");
+if(!isFunction(GuiControl, TangoMoveTo))
+    exec("./tango.cs");
 
-$Revamp::Version = 0.71;
-
-if(!$Revamp::exec) {
-	//---Smooth movement; Tango. by Zapk---
-	exec("./tango.cs");
-
-	//---GUI---
-	exec("./gui/adminGui.gui");
-	exec("./gui/RevampWelcomeDlg.gui");
-	exec("./gui/ConsoleDlg.gui");
-	exec("./gui/netGraphGui.gui");
-	exec("./gui/newCursorGui.gui");
-	exec("./gui/hudlessGui.gui");
-	exec("./gui/test.cs");
-	exec("./cursor.cs");
-	globalActionMap.bind(keyboard, "Control-f5", toggleNewCursor);
-	globalActionMap.bind(keyboard, "f6", ToggleHudlessPlayGui);
-
-	if($Pref::Revamp::Version !$= $Revamp::Version || !$Pref::Revamp::FirstTime) {
-		$Pref::Revamp::FirstTime = 0;
-		schedule(1000, 0, RevampWelcome);
-	}
-	else
-		RevampWelcomeDlg.delete(); //I'm not gonna clutter Gui's into Blockland.
+if(!isObject(NewCursorButton)) {
+    %button = new GuiButtonCtrl(NewCursorButton) {
+        text = "Set new cursor";
+        position = "241 333";
+        command = "canvas.pushDialog(\"NewCursorGui\");";
+    };
+    if(isObject(OptGraphicsPane))
+        OptGraphicsPane.add(%button);
 }
 
-function RevampWelcome() {
-	$Pref::Revamp::FirstTime = 1;
-	$Pref::Revamp::Version = $Revamp::Version;
-	canvas.pushDialog(RevampWelcomeDlg);
-
-	export("$Pref*","config/client/prefs.cs");
+function ResetCursorDefaults() {
+    DefaultCursor.delete();
+    if($platform $= "macos") {
+        new GuiCursor(DefaultCursor ) {
+            hotSpot = "4 4";
+            renderOffset = "0 0";
+            bitmapName = "./cursor/cursor" @ $Pref::Revamp::Cursor;
+        };
+    } else {
+        new GuiCursor(DefaultCursor) {
+            hotSpot = "1 1";
+            renderOffset = "0 0";
+            bitmapName = "./cursor/cursor" @ $Pref::Revamp::Cursor;
+        };
+    }
+    Canvas.setCursor(DefaultCursor);
 }
 
-function loadMainMenu(%a,%b,%c,%d) {
-	canvas.pushDialog(MainMenuGui);
-	MainMenuGui.showButtons();
+function newCursorGui::onWake(%this)
+{
+    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
+    CursorGui.position = %centerX SPC getRandom(-900, 900);
+    CursorGui.tangoMoveTo("center", "1000", "elastic");
 }
+
+function newCursorGui::onSleep(%this)
+{
+    %centerX = getWord($pref::Video::resolution,1) / 2 - getWord(%this.extent,1) / 2;
+    CursorGui.position = %centerX SPC getRandom(-900, 900);
+}
+
+function NewCursorGui::setCursor(%this, %cursor)
+{
+    %f = new FileObject();
+    %f.openForWrite("config/revamp.txt");
+    %f.writeLine("Cursor " @ %cursor);
+    %f.close(); %f.delete();
+    echo("Attempting to set cursor to" SPC $Pref::Revamp::Cursor = %cursor);
+    ResetCursorDefaults();
+}
+
+package Revamp {
+    function loadMainMenu() {
+    	parent::loadMainMenu();
+        if(isFile("config/revamp.txt")) {
+            %f = new FileObject();
+            %f.openForRead("config/revamp.txt");
+            $Pref::Revamp::Cursor = getWord(%f.readLine(), 1);
+            %f.close(); %f.delete();
+            ResetCursorDefaults();
+        }
+    }
+};
+activatePackage(Revamp);

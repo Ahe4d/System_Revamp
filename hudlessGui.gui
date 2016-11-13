@@ -30,23 +30,33 @@ if(isObject(hudlessPlayGui)) //does it already exist?
 //--- OBJECT WRITE END ---
 
 
-function HudlessPlayGui::onWake(%this) {
-   moveMap.push();
+function HudlessPlayGui::onWake(%this)
+{
+   moveMap.push(); //yes.
 }
 
-function toggleHudlessPlayGui(%key) {
-    if(%key) {
-        if(!HudlessPlayGui.isAwake()) {
-            canvas.popDialog(PlayGui);
-            canvas.pushDialog(HudlessPlayGui);
-            return;
-        }
-        else {
-            canvas.popDialog(HudlessPlayGui);
-            canvas.pushDialog(PlayGui);
-            canvas.add(newChatHud);
-            canvas.add(newMessageHud);
-            canvas.popDialog(newMessageHud);
-        }
-    }
+function HudlessPlayGui::onSleep(%this)
+{
+   //no.
+}
+
+function toggleHudlessPlayGui(%key)
+{
+   if(%key)
+   {
+      if(!HudlessPlayGui.isAwake())
+      {
+         canvas.popDialog(PlayGui);
+         canvas.pushDialog(HudlessPlayGui);
+         return;
+      }
+      else
+      {
+         canvas.popDialog(HudlessPlayGui);
+         canvas.pushDialog(PlayGui);
+         canvas.add(newChatHud);
+         canvas.add(newMessageHud);
+         canvas.popDialog(newMessageHud);
+      }
+   }
 }
