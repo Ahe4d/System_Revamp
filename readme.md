@@ -1,8 +1,8 @@
 # System_Revamp
 ___The Revamp Blockland needs___
 
-##Using this?
-    There should be a folder inside the zip, extract the folder to your Add-Ons folder in Blockland.
+##Using this? (STABLE, V0.25-alpha release)
+See the [releases](https://github.com/Anthonyrules144/System_Revamp/releases) tab and download System_Revamp.zip
 ###Having issues? Want something new?
 Post them in the [Issues](https://github.com/Anthonyrules144/System_Revamp/issues) tab, please.
 ###Have a code request?
