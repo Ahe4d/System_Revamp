@@ -22,7 +22,7 @@ ___
  - There will be customization for this chat in the future, as of now, you can change the size, but can't change the colors and so forth.
 * GUI setup?
  - As of now, only certain GUIs are permitted to move about, and animate as such. In the future this will be changed, and more support will be added for developers using System_Revamp
-* Mouse chaning?
+* Mouse changing?
  - In the old System_Revamp code, after you changed your mouse, you had to reset your game, this was for good reason. In this version this has been fixed, and the mouse pointers work accordingly. You can find the option to change them in the Graphics menu of the Options GUI
 
 ___
