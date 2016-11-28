@@ -26,3 +26,10 @@ ___
  - In the old System_Revamp code, after you changed your mouse, you had to reset your game, this was for good reason. In this version this has been fixed, and the mouse pointers work accordingly. You can find the option to change them in the Graphics menu of the Options GUI
 
 ___
+
+##Images: 
+![New Chat](https://cdn.discordapp.com/attachments/172272548950573057/252940728185913345/unknown.png)
+
+![New Console](http://i.imgur.com/XVwiTPl.png)
+
+![Cursor Changing GUI](http://i.imgur.com/BI7cMhR.png)
