@@ -3,6 +3,8 @@ ___The Revamp Blockland needs___
 
 ##Using this? (STABLE, V0.25-alpha release)
 See the [releases](https://github.com/Anthonyrules144/System_Revamp/releases) tab and download System_Revamp.zip
+
+Rather use an unstable version? Click "Clone or Download", there should be a folder inside the downloaded zip, put this folder in your Add-Ons
 ###Having issues? Want something new?
 Post them in the [Issues](https://github.com/Anthonyrules144/System_Revamp/issues) tab, please.
 ###Have a code request?
@@ -32,4 +34,4 @@ ___
 
 ![New Console](http://i.imgur.com/XVwiTPl.png)
 
-![Cursor Changing GUI](http://i.imgur.com/BI7cMhR.png)
+![Cursor Changing GUI](http://i.imgur.com/1bcOWkM.png)
