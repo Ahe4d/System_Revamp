@@ -1,20 +1,21 @@
 //--- OBJECT WRITE BEGIN ---
-new GuiControl(newCursorGui) {
+new GuiControl(NewCursorGui) {
    profile = "GuiDefaultProfile";
    horizSizing = "center";
    vertSizing = "center";
    position = "0 0";
-   extent = "800 600";
+   extent = "640 480";
    minExtent = "8 2";
    enabled = "1";
    visible = "1";
    clipToParent = "1";
+      cursorIds = "8";
 
    new GuiWindowCtrl(CursorGui) {
       profile = "GuiWindowProfile";
       horizSizing = "center";
       vertSizing = "center";
-      position = "285 122";
+      position = "205 62";
       extent = "229 355";
       minExtent = "8 2";
       enabled = "1";
@@ -32,126 +33,25 @@ new GuiControl(newCursorGui) {
       canMaximize = "0";
       minSize = "50 50";
       closeCommand = "canvas.popDialog(NewCursorGui);";
+         tangoMoveTick = "3695";
 
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
+      new GuiScrollCtrl(CursorGuiScroll) {
+         profile = "GuiScrollProfile";
          horizSizing = "right";
          vertSizing = "bottom";
-         position = "7 50";
-         extent = "140 30";
+         position = "15 30";
+         extent = "200 262";
          minExtent = "8 2";
          enabled = "1";
          visible = "1";
          clipToParent = "1";
-         command = "NewCursorGui.setCursor(0);";
-         text = "Normal cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 260";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(7);";
-         text = "Middle Finger";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 80";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(1);";
-         text = "Mac cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 110";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(2);";
-         text = "New cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 140";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(3);";
-         text = "Black cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 170";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(4);";
-         text = "Blue cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 200";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(5);";
-         text = "Yellow cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
-      };
-      new GuiRadioCtrl() {
-         profile = "GuiRadioProfile";
-         horizSizing = "right";
-         vertSizing = "bottom";
-         position = "7 230";
-         extent = "140 30";
-         minExtent = "8 2";
-         enabled = "1";
-         visible = "1";
-         clipToParent = "1";
-         command = "NewCursorGui.setCursor(6);";
-         text = "TOB cursor";
-         groupNum = "5";
-         buttonType = "RadioButton";
+         willFirstRespond = "0";
+         hScrollBar = "dynamic";
+         vScrollBar = "dynamic";
+         constantThumbHeight = "0";
+         childMargin = "0 0";
+         rowHeight = "40";
+         columnWidth = "30";
       };
       new GuiButtonCtrl() {
          profile = "BlockButtonProfile";
@@ -165,6 +65,20 @@ new GuiControl(newCursorGui) {
          clipToParent = "1";
          command = "canvas.popDialog(NewCursorGui);";
          text = "Done";
+         groupNum = "-1";
+         buttonType = "PushButton";
+      };
+      new GuiButtonCtrl(CursorGuiHelp) {
+         profile = "GuiButtonProfile";
+         horizSizing = "right";
+         vertSizing = "bottom";
+         position = "83 294";
+         extent = "64 20";
+         minExtent = "8 2";
+         enabled = "1";
+         visible = "1";
+         clipToParent = "1";
+         text = "Help";
          groupNum = "-1";
          buttonType = "PushButton";
       };
